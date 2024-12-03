@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 import './App.css';
-// import GeneralInformation from './components/GeneralInformation';
+import GeneralInformation from './components/GeneralInformation';
 import ExperimentSetup from './components/ExperimentSetup';
 import Detector from './components/Detector';
 import Sample from './components/Sample';
@@ -20,8 +20,8 @@ function App() {
 
   const renderTabContent = () => {
     switch (activeTab) {
-//      case 'General Information':
-//        return <GeneralInformation setGeneralInfo={setGeneralInfo} />;
+      case 'General Information':
+        return <GeneralInformation setGeneralInfo={setGeneralInfo} generalInfo={generalInfo} />;
       case 'Experiment Setup':
         return <ExperimentSetup setExperimentSetup={setExperimentSetup} experimentSetup={experimentSetup} />;
       case 'Detection System':
@@ -29,15 +29,16 @@ function App() {
       case 'Sample':
         return <Sample setSample={setSample} sample={sample}  />;
       default:
-        return <ExperimentSetup setExperimentSetup={setExperimentSetup} experimentSetup={experimentSetup} />;
+        return <GeneralInformation setGeneralInfo={setGeneralInfo} generalInfo={generalInfo} />;
     }
   };
-  
+
   const handleSave = () => {
 
     const missingFields = [];
     
     // Validación de campos para "Beam Settings"
+    if (!generalInfo.proposal) missingFields.push('General Info.');
     if (!experimentSetup.beamSettings) missingFields.push('Experiment Setup');
     if (!detectors.genParamsTOF) missingFields.push('Detection System');
     if (!sample.ID) missingFields.push('Sample');
@@ -59,7 +60,7 @@ function App() {
     alert('JSON saved successfully');
     const jsonData = {
       date: new Date().toISOString(),
-//      generalInfo,
+      generalInfo,
       experimentSetup,
       detectors,
       sample,
@@ -87,13 +88,19 @@ function App() {
         const jsonData = JSON.parse(e.target.result);
 
         // Validar estructura del JSON cargado (puedes añadir más validaciones según sea necesario)
-        if (jsonData.experimentSetup && jsonData.detectors && jsonData.sample) {
+        if (jsonData.generalInfo && jsonData.experimentSetup && jsonData.detectors && jsonData.sample) {
+          setGeneralInfo(jsonData.generalInfo)
           setExperimentSetup(jsonData.experimentSetup);
           setDetectors(jsonData.detectors);
           setSample(jsonData.sample);
           alert('JSON loaded successfully');
-          setActiveTab('Detection System');          
-          setActiveTab('Experiment Setup');
+
+          // Cambiar la pestaña activa condicionalmente
+          if (activeTab === 'General Info.') {
+            setActiveTab('Experiment Setup');
+        } else {
+            setActiveTab('General Info.');
+        }
 
           // Llamar a la API de Electron para minimizar y maximizar la ventana
           if (window.electron) {
@@ -102,8 +109,13 @@ function App() {
           
         } else {
           alert('Invalid JSON structure');
-          setActiveTab('Detection System'); 
-          setActiveTab('Experiment Setup');
+
+          // Cambiar la pestaña activa condicionalmente
+          if (activeTab === 'General Info.') {
+            setActiveTab('Experiment Setup');
+          } else {
+            setActiveTab('General Info.n');
+          }
 
           // Llamar a la API de Electron para minimizar y maximizar la ventana
           if (window.electron) {
@@ -112,8 +124,13 @@ function App() {
         }
       } catch (error) {
         alert('Error reading JSON file');
-        setActiveTab('Detection System'); 
-        setActiveTab('Experiment Setup');
+
+        // Cambiar la pestaña activa condicionalmente
+        if (activeTab === 'General Info.') {
+          setActiveTab('Experiment Setup');
+        } else {
+        setActiveTab('General Info.');
+        }
 
         // Llamar a la API de Electron para minimizar y maximizar la ventana
         if (window.electron) {
@@ -135,6 +152,13 @@ function App() {
     setError('');
     alert('All data has been cleaned.');
 
+    // Cambiar la pestaña activa condicionalmente
+    if (activeTab === 'General Info.') {
+      setActiveTab('Experiment Setup');
+    } else {
+    setActiveTab('General Info.');
+    }
+
     // Llamar a la API de Electron para minimizar y maximizar la ventana
     if (window.electron) {
         window.electron.minimizeAndRestore();
@@ -153,6 +177,12 @@ function App() {
       <h1>ToF-ERDA Metadata Generator</h1>
 
       <div className="tab-buttons">
+
+        <button 
+        onClick={() => setActiveTab('General Info.')}
+        className={invalidFields.includes('General Info.') ? 'invalid' : ''} 
+        >General Info.</button>
+
         <button 
         onClick={() => setActiveTab('Experiment Setup')}
         className={invalidFields.includes('Experiment Setup') ? 'invalid' : ''} 

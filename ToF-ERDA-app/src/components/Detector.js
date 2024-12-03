@@ -165,6 +165,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			          placeholder = "0.00"
                 step="0.01"
                 pattern="\d+(\.\d+)?"
+                onWheel={(e) => e.target.blur()}
                 value={genParamsTOF.sampleT1Distance || ''}
                 onChange={(e) => handleDecimalInput(e, 'sampleT1Distance', setGenParamsTOF)}
                 className={invalidFields.includes('sampleT1Distance') ? 'invalid' : ''}
@@ -180,6 +181,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			            placeholder = "0.00"
                   step="0.01"
                   pattern="\d+(\.\d+)?"
+                  onWheel={(e) => e.target.blur()}
                   value={genParamsTOF.lengthOfFlight || ''}
                   onChange={(e) => handleDecimalInput(e, 'lengthOfFlight', setGenParamsTOF)}
                   className={invalidFields.includes('lengthOfFlight') ? 'invalid' : ''}
@@ -193,6 +195,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			            placeholder = "0.00"
                   step="0.01"
                   pattern="[-+]?\d+(\.\d+)?"
+                  onWheel={(e) => e.target.blur()}
                   value={genParamsTOF.tofPolarityBIAS || ''}
                   onChange={(e) => handleDecimalInput(e, 'tofPolarityBIAS', setGenParamsTOF)}
                   className={invalidFields.includes('tofPolarityBIAS') ? 'invalid' : ''}
@@ -215,6 +218,7 @@ const Detectors = ({ detectors, setDetectors }) => {
                 step={0.01}
                 placeholder="0.00"
                 pattern="\d+(\.\d+)?"
+                onWheel={(e) => e.target.blur()}
                 value={electronicsTOF.tofShapingTime}
                 onChange={(e) => handleDecimalInput(e, 'tofShapingTime', setElectronicsTOF)}
                 className={invalidFields.includes('tofShapingTime') ? 'invalid' : ''}
@@ -230,6 +234,7 @@ const Detectors = ({ detectors, setDetectors }) => {
                 step={0.01}
                 placeholder="0.00"
                 pattern="\d+(\.\d+)?"
+                onWheel={(e) => e.target.blur()}
                 value={electronicsTOF.tofAmplifierCoarseGain}
                 onChange={(e) => handleDecimalInput(e, 'tofAmplifierCoarseGain', setElectronicsTOF)}
                 className={invalidFields.includes('tofAmplifierCoarseGain') ? 'invalid' : ''}
@@ -243,6 +248,7 @@ const Detectors = ({ detectors, setDetectors }) => {
                 step={0.01}
                 placeholder="0.00"
                 pattern="\d+(\.\d+)?"
+                onWheel={(e) => e.target.blur()}
                 value={electronicsTOF.tofAmplifierFineGain}
                 onChange={(e) => handleDecimalInput(e, 'tofAmplifierFineGain', setElectronicsTOF)}
                 className={invalidFields.includes('tofAmplifierFineGain') ? 'invalid' : ''}
@@ -260,6 +266,7 @@ const Detectors = ({ detectors, setDetectors }) => {
                 step={0.01}
                 placeholder="0.00"
                 pattern="\d+(\.\d+)?"
+                onWheel={(e) => e.target.blur()}
                 value={electronicsTOF.tofAtcGain}
                 onChange={(e) => handleDecimalInput(e, 'tofAtcGain', setElectronicsTOF)}
                 className={invalidFields.includes('tofAtcGain') ? 'invalid' : ''}
@@ -273,6 +280,7 @@ const Detectors = ({ detectors, setDetectors }) => {
                 step={0.01}
                 placeholder="0.00"
                 pattern="\d+(\.\d+)?"
+                onWheel={(e) => e.target.blur()}
                 value={electronicsTOF.tofAtcRange}
                 onChange={(e) => handleDecimalInput(e, 'tofAtcRange', setElectronicsTOF)}
                 className={invalidFields.includes('tofAtcRange') ? 'invalid' : ''}
@@ -299,6 +307,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 		        	placeholder = "0.00"
 		        	step="0.01"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={genParamsEnergy.sampleDetectorDistance || ''}
               onChange={(e) => handleDecimalInput(e, 'sampleDetectorDistance', setGenParamsEnergy)}
               className={invalidFields.includes('sampleDetectorDistance') ? 'invalid' : ''}
@@ -325,6 +334,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			        placeholder = "0.00"
               step="0.01"
               pattern="[-+]?\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={genParamsEnergy.EnergyPolarityBIAS || ''}
               onChange={(e) => handleDecimalInput(e, 'EnergyPolarityBIAS', setGenParamsEnergy)}
               className={invalidFields.includes('EnergyPolarityBIAS') ? 'invalid' : ''}
@@ -348,6 +358,7 @@ const Detectors = ({ detectors, setDetectors }) => {
               step={0.01}
               placeholder="0.00"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={electronicsEnergy.EnergyShapingTime}
               onChange={(e) => handleDecimalInput(e, 'EnergyShapingTime', setElectronicsEnergy)}
               className={invalidFields.includes('EnergyShapingTime') ? 'invalid' : ''}
@@ -363,6 +374,7 @@ const Detectors = ({ detectors, setDetectors }) => {
               step={0.01}
               placeholder="0.00"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={electronicsEnergy.EnergyAmplifierCoarseGain}
               onChange={(e) => handleDecimalInput(e, 'EnergyAmplifierCoarseGain', setElectronicsEnergy)}
               className={invalidFields.includes('EnergyAmplifierCoarseGain') ? 'invalid' : ''}
@@ -376,6 +388,7 @@ const Detectors = ({ detectors, setDetectors }) => {
               step={0.01}
               placeholder="0.00"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={electronicsEnergy.EnergyAmplifierFineGain}
               onChange={(e) => handleDecimalInput(e, 'EnergyAmplifierFineGain', setElectronicsEnergy)}
               className={invalidFields.includes('EnergyAmplifierFineGain') ? 'invalid' : ''}
@@ -393,6 +406,7 @@ const Detectors = ({ detectors, setDetectors }) => {
               step={0.01}
               placeholder="0.00"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={electronicsEnergy.EnergyAdcGain}
               onChange={(e) => handleDecimalInput(e, 'EnergyAdcGain', setElectronicsEnergy)}
               className={invalidFields.includes('EnergyAdcGain') ? 'invalid' : ''}
@@ -406,6 +420,7 @@ const Detectors = ({ detectors, setDetectors }) => {
               step={0.01}
               placeholder="0.00"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={electronicsEnergy.EnergyAdcRange}
               onChange={(e) => handleDecimalInput(e, 'EnergyAdcRange', setElectronicsEnergy)}
               className={invalidFields.includes('EnergyAdcRange') ? 'invalid' : ''}
@@ -430,6 +445,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			        placeholder = "0.00"
               step="0.01"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={commonElectronics.coincidenceWindow || ''}
               onChange={(e) => handleDecimalInput(e, 'coincidenceWindow', setCommonElectronics)}
               className={invalidFields.includes('coincidenceWindow') ? 'invalid' : ''}
@@ -443,6 +459,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			        placeholder = "0.00"
               step="0.01"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={commonElectronics.realTime || ''}
               onChange={(e) => handleDecimalInput(e, 'realTime', setCommonElectronics)}
               className={invalidFields.includes('realTime') ? 'invalid' : ''}
@@ -460,6 +477,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			        placeholder = "0.00"
               step="0.01"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={commonElectronics.liveTime || ''}
               onChange={(e) => handleDecimalInput(e, 'liveTime', setCommonElectronics)}
               className={invalidFields.includes('liveTime') ? 'invalid' : ''}
@@ -473,6 +491,7 @@ const Detectors = ({ detectors, setDetectors }) => {
 			        placeholder = "0.00"
               step="0.01"
               pattern="\d+(\.\d+)?"
+              onWheel={(e) => e.target.blur()}
               value={commonElectronics.deadTime || ''}
               onChange={(e) => handleDecimalInput(e, 'deadTime', setCommonElectronics)}
               className={invalidFields.includes('deadTime') ? 'invalid' : ''}

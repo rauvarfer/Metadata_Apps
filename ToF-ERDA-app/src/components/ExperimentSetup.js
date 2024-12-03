@@ -251,6 +251,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         placeholder='0.00'
                         step="0.01"
                         pattern="\d+(\.\d+)?"
+                        onWheel={(e) => e.target.blur()}
                         value={beamSettings.energy}
                         onChange={(e) => handleDecimalInput(e, 'energy', setBeamSettings)}
                         className={invalidFields.includes('energy') ? 'invalid' : ''}
@@ -263,6 +264,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         placeholder='0.00'
                         step="0.01"
                         pattern="\d+(\.\d+)?"
+                        onWheel={(e) => e.target.blur()}
                         value={beamSettings.FCCurrent}
                         onChange={(e) => handleDecimalInput(e, 'FCCurrent', setBeamSettings)}
                         className={invalidFields.includes('FCCurrent') ? 'invalid' : ''}
@@ -294,6 +296,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                               type="number"
                               placeholder='0.00'
                               pattern="\d+(\.\d+)?"
+                              onWheel={(e) => e.target.blur()}
                               value={additionalSettings.terminalPotential}
                               onChange={(e) => handleDecimalInput(e, 'terminalPotential', setAdditionalSettings)}
                               step="0.01"
@@ -304,6 +307,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                           <input
                               type="number"
                               placeholder='0.00'
+                              onWheel={(e) => e.target.blur()}
                               value={additionalSettings.injectionEnergy}
                               onChange={(e) => handleDecimalInput(e, 'injectionEnergy', setAdditionalSettings)}
                               step="0.01"
@@ -318,6 +322,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                           type="number"
                           placeholder='0.00'
                           pattern="\d+(\.\d+)?"
+                          onWheel={(e) => e.target.blur()}
                           value={additionalSettings.electromagnetCurrent}
                           onChange={(e) => handleDecimalInput(e, 'electromagnetCurrent', setAdditionalSettings)}
                           step="0.01"
@@ -329,6 +334,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                           type="number"
                           placeholder='0.00'
                           pattern="\d+(\.\d+)?"
+                          onWheel={(e) => e.target.blur()}
                           value={additionalSettings.stripperPressure}
                           onChange={(e) => handleDecimalInput(e, 'stripperPressure', setAdditionalSettings)}
                           step="0.01"
@@ -356,6 +362,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         type="number"
                         placeholder='0.00'
                         pattern="\d+(\.\d+)?"
+                        onWheel={(e) => e.target.blur()}
                         value={geometry.sampleAngleBeta}
                         onChange={(e) => handleDecimalInput(e, 'sampleAngleBeta', setGeometry)}
                         className={invalidFields.includes('sampleAngleBeta') ? 'invalid' : ''}
@@ -368,6 +375,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         type="number"
                         placeholder='0.00'
                         pattern="\d+(\.\d+)?"
+                        onWheel={(e) => e.target.blur()}
                         value={geometry.detectorAngleTheta}
                         onChange={(e) => handleDecimalInput(e, 'detectorAngleTheta', setGeometry)}
                         className={invalidFields.includes('detectorAngleTheta') ? 'invalid' : ''}
@@ -380,6 +388,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         type="number"
                         placeholder='0.00'
                         pattern="\d+(\.\d+)?"
+                        onWheel={(e) => e.target.blur()}
                         value={geometry.sampleAnglePhi}
                         onChange={(e) => handleDecimalInput(e, 'sampleAnglePhi', setGeometry)}
                     />
@@ -391,6 +400,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         type="number"
                         placeholder='0.00'
                         pattern="\d+(\.\d+)?"
+                        onWheel={(e) => e.target.blur()}
                         value={geometry.detectorAnglePhi}
                         onChange={(e) => handleDecimalInput(e, 'detectorAnglePhi', setGeometry)}
                     />
