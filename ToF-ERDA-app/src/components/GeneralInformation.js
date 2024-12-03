@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './GeneralInformation.css';
 
 const GeneralInformation = ({ generalInfo, setGeneralInfo }) => {
@@ -214,7 +214,7 @@ return (
                 ))}
 
                
-                <button className="btn-add-member" onClick={handleAddMember}>Add new team members</button>
+                <button className="btn-add-member" onClick={handleAddMember}>Add new member</button>
             </div>
 
             <button className="btn-save-geninfo" onClick={handleSave}>Save General Information</button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Detector.css'; // Asegúrate de importar el archivo CSS
 
 const Detectors = ({ detectors, setDetectors }) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Sample.css'; // Asegúrate de importar el archivo CSS
 
 const Sample = ({ sample, setSample }) => {

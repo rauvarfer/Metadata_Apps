@@ -115,7 +115,7 @@ input::-webkit-inner-spin-button {
 }
 
 .exp-form-group input[type="number"] {
-    width: 12ch; /* Fija la anchura para que quepan 6 caracteres */
+    width: 10ch; /* Fija la anchura para que quepan 6 caracteres */
     height: auto;
     padding: 1px;
     border: 1px solid #ccc;
