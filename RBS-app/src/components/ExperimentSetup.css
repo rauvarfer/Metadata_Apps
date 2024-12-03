@@ -1,0 +1,243 @@
+/* Contenedor general */
+.experiment-setup-container {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(146, 84, 84, 0.1);
+    max-width: 510px;
+    margin: 10px auto;
+}
+
+
+/* Título principal */
+h2 {
+    font-size: 14px;
+    background-color: #fff;
+    padding: 5px;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Subtítulos de sección */
+h3 {
+    font-size: 12px;
+    background-color: #fff;
+    padding: 5px;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* Secciones y organización en filas */
+.exp-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.beam-settings-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.additional-beam-settings-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.additional-beam-settings-subsection {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+
+.geometry-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+/* Estilo de las filas */
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 5px;
+}
+
+/* Etiquetas del formulario */
+.exp-form-group label {
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+/* Inputs */
+/* .exp-form-group input[type="text"], */
+.exp-form-group select {
+    width: 10ch; /* Fija la anchura para que quepan 6 caracteres */
+    height: auto;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 10px;
+    margin-right: 1px;
+    text-align: center; /* Alinea el texto a la derecha para valores numéricos */
+}
+
+.exp-form-group input[type="number"] {
+    width: 10ch; /* Fija la anchura para que quepan 6 caracteres */
+    height: auto;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 10px;
+    margin-right: 1px;
+    text-align: right; /* Alinea el texto a la derecha para valores numéricos */
+}
+
+.center-exp-form-group label {
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 25%;
+}
+.center-exp-form-group input[type="number"] {
+    width: 12ch; /* Fija la anchura para que quepan 6 caracteres */
+    height: auto;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 10px;
+    margin-left: 1px;
+    text-align: right; /* Alinea el texto a la derecha para valores numéricos */ 
+    margin-bottom: 5px;
+}
+
+input::placeholder {
+    font-size: 10px;
+}
+
+
+select option {
+    font-size: 10px;
+}
+
+/* Checkbox */
+.exp-form-group input[type="checkbox"] {
+    margin-right: 1ch;
+}
+
+/* Mensajes de error */
+.error-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-color: #333;
+    border-radius: 8px;
+    background-color: #cf4646;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.exp-form-group input.invalid,
+.exp-form-group select.invalid {
+  border-color: red;
+}
+
+/* Mensajes de success */
+
+.success-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-color: #333;
+    border-radius: 8px;
+    background-color: #29c51b;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Contenedor de la imagen */
+.geometry-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+/* Ajuste de tamaño de la imagen */
+.geometry-image {
+    width: 150px; /* Puedes ajustar este tamaño según necesites */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin: 1px 0;
+    display: block;
+    max-width: 100%; /* Asegura que la imagen no exceda el contenedor */
+}
+
+
+/* Botón de guardar */
+.btn-save-expsetup {
+    display: block;
+    margin-left: 33%;
+    margin-top: 8px;
+    padding: 5px 5px;
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #737373;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-save-expsetup:hover {
+    background-color: #218838;
+}

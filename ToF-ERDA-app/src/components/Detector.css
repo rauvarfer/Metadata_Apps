@@ -1,0 +1,175 @@
+/* General container for the section */
+.detector-container {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 470px;
+    margin: 10px auto;
+}
+
+/* Encabezados */
+
+/* Título principal */
+h2 {
+    font-size: 14px;
+    background-color: #fff;
+    padding: 5px;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Subtítulos de sección */
+h3 {
+    font-size: 12px;
+    background-color: #fff;
+    padding: 5px;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Secciones y organización en filas */
+.detector-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.detector-subsection {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 5px;
+}
+
+/* Etiquetas del formulario */
+.detector-form-group label {
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+.detector-form-group input[type="number"] {
+    width: 12ch; /* Fija la anchura para que quepan 6 caracteres */
+    height: auto;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 10px;
+    margin-right: 1px;
+    text-align: right; /* Alinea el texto a la derecha para valores numéricos */
+}
+
+.center-detector-form-group label {
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 25%;
+}
+.center-detector-form-group input[type="number"] {
+    width: 12ch; /* Fija la anchura para que quepan 6 caracteres */
+    height: auto;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 10px;
+    margin-left: 1px;
+    text-align: right; /* Alinea el texto a la derecha para valores numéricos */
+    
+    margin-bottom: 5px;
+}
+
+input::placeholder {
+    font-size: 10px;
+}
+
+/* Mensajes de error */
+.error-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-color: #333;
+    border-radius: 8px;
+    background-color: #cf4646;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.detector-form-group input.invalid,
+.center-detector-form-group input.invalid {
+  border-color: red;
+}
+
+.detector-form-group input[type="checkbox"] {
+    margin-right: 1ch;
+}
+
+/* Mensajes de success */
+
+.success-message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-color: #333;
+    border-radius: 8px;
+    background-color: #29c51b;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Button styling */
+.btn-save-detector{
+    display: block;
+    margin-left: 40%;
+    margin-top: 8px;
+    padding: 5px 5px;
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #737373;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para mejorar la interacción */
+.btn-save-detector:hover {
+  background-color: #218838;
+}
