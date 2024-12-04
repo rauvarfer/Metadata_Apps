@@ -4,7 +4,7 @@ import './App.css';
 import GeneralInformation from './components/GeneralInformation';
 import ExperimentSetup from './components/ExperimentSetup';
 import Detector from './components/Detector';
-import Sample from './components/Sample';
+//import Sample from './components/Sample';
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
   const [generalInfo, setGeneralInfo] = useState({});
   const [experimentSetup, setExperimentSetup] = useState({});
   const [detectors, setDetectors] = useState({});
-  const [sample, setSample] = useState({});
+//  const [sample, setSample] = useState({});
 
   const [activeTab, setActiveTab] = useState('General Information');
 
@@ -26,8 +26,8 @@ function App() {
         return <ExperimentSetup setExperimentSetup={setExperimentSetup} experimentSetup={experimentSetup} />;
       case 'Detection System':
         return <Detector setDetectors={setDetectors} detectors={detectors}/>;
-      case 'Sample':
-        return <Sample setSample={setSample} sample={sample}  />;
+//      case 'Sample':
+//        return <Sample setSample={setSample} sample={sample}  />;
       default:
         return <GeneralInformation setGeneralInfo={setGeneralInfo} generalInfo={generalInfo} />;
     }
@@ -41,7 +41,7 @@ function App() {
     if (!generalInfo.proposal) missingFields.push('General Info.');
     if (!experimentSetup.beamSettings) missingFields.push('Experiment Setup');
     if (!detectors.genParams) missingFields.push('Detection System');
-    if (!sample.ID) missingFields.push('Sample');
+//    if (!sample.ID) missingFields.push('Sample');
     
     // Si faltan campos, mostrar error
     if (missingFields.length > 0) {
@@ -63,7 +63,7 @@ function App() {
       generalInfo,
       experimentSetup,
       detectors,
-      sample,
+//      sample,
     };
 
     const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
@@ -92,7 +92,7 @@ function App() {
           setGeneralInfo(jsonData.generalInfo)
           setExperimentSetup(jsonData.experimentSetup);
           setDetectors(jsonData.detectors);
-          setSample(jsonData.sample);
+//          setSample(jsonData.sample);
           alert('JSON loaded successfully');
 
           // Cambiar la pestaña activa condicionalmente
@@ -148,7 +148,7 @@ function App() {
     setGeneralInfo({});
     setExperimentSetup({});
     setDetectors({});
-    setSample({});
+//    setSample({});
     setError('');
     alert('All data has been cleaned.');
 
@@ -164,6 +164,13 @@ function App() {
         window.electron.minimizeAndRestore();
       }
   };
+
+  /* 
+        <button 
+        onClick={() => setActiveTab('Sample')}
+        className={invalidFields.includes('Sample') ? 'invalid' : ''} 
+        >Sample</button>
+  */
   
   return (
     <div className="container">
@@ -187,10 +194,6 @@ function App() {
         className={invalidFields.includes('Detection System') ? 'invalid' : ''} 
         >Detection System</button>
 
-        <button 
-        onClick={() => setActiveTab('Sample')}
-        className={invalidFields.includes('Sample') ? 'invalid' : ''} 
-        >Sample</button>
       </div>
 
       {renderTabContent()}
