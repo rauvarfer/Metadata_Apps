@@ -4,7 +4,7 @@ const isDev = require('electron-is-dev');
 
 function createWindow () {
   const win = new BrowserWindow({
-    width: 530,
+    width: 550,
     height: 750,
     webPreferences: {
       icon: path.join(__dirname, 'favicon.ico'),
