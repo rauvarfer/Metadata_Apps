@@ -10,62 +10,75 @@ const electronCharge = 1.602176634e-19; // Carga del electrón en C
 // const factoreVkeV = 1e-3; // Factor de conversión de eV a keV
 // const factorumakg = 1.66053886e-27; // Factor de conversión de uma a kg
 
-
 const elementData = {
     H: {
-        mass: [1, 2], // Isótopos: Protium, Deuterio
+        Z: [1], // Número atómico de Hidrógeno
+        A: [1, 2], // Isótopos: Protium, Deuterio
         chargeStates: [1] // Estado de carga: H+
     },
     He: {
-        mass: [3, 4], // Isótopos: He-3, He-4
+        Z: [2], // Número atómico de Helio
+        A: [3, 4], // Isótopos: He-3, He-4
         chargeStates: [1, 2] // Estados de carga: He+, He2+
     },
     C: {
-        mass: [12, 13, 14], // Isótopos: C-12, C-13, C-14
+        Z: [6], // Número atómico de Carbono
+        A: [12, 13, 14], // Isótopos: C-12, C-13, C-14
         chargeStates: [1, 2, 3, 4] // Estados de carga: C+, C2+, C3+, C4+
     },
     N: {
-        mass: [14, 15], // Isótopos: N-14, N-15
+        Z: [7], // Número atómico de Nitrógeno
+        A: [14, 15], // Isótopos: N-14, N-15
         chargeStates: [1, 2, 3, 4] // Estados de carga: N+, N2+, N3+, N4+
     },
     O: {
-        mass: [16, 17, 18], // Isótopos: O-16, O-17, O-18
+        Z: [8], // Número atómico de Oxígeno
+        A: [16, 17, 18], // Isótopos: O-16, O-17, O-18
         chargeStates: [1, 2, 3, 4] // Estados de carga: O+, O2+, O3+, O4+
     },
     Ne: {
-        mass: [20, 21, 22], // Isótopos: Ne-20, Ne-21, Ne-22
+        Z: [10], // Número atómico de Neón
+        A: [20, 21, 22], // Isótopos: Ne-20, Ne-21, Ne-22
         chargeStates: [1, 2] // Estados de carga: Ne+, Ne2+
     },
     Cl: {
-        mass: [35, 37], // Isótopos: Cl-35, Cl-37
+        Z: [17], // Número atómico de Cloro
+        A: [35, 37], // Isótopos: Cl-35, Cl-37
         chargeStates: [1, 2] // Estados de carga: Cl+, Cl2+
     },
     Ar: {
-        mass: [36, 38, 40], // Isótopos: Ar-36, Ar-38, Ar-40
+        Z: [18], // Número atómico de Argón
+        A: [36, 38, 40], // Isótopos: Ar-36, Ar-38, Ar-40
         chargeStates: [1, 2] // Estados de carga: Ar+, Ar2+
     },
     Kr: {
-        mass: [78, 80, 82, 83, 84, 86], // Isótopos: Kr-78, Kr-80, Kr-82, Kr-83, Kr-84, Kr-86
+        Z: [36], // Número atómico de Kriptón
+        A: [78, 80, 82, 83, 84, 86], // Isótopos: Kr-78, Kr-80, Kr-82, Kr-83, Kr-84, Kr-86
         chargeStates: [1, 2] // Estados de carga: Kr+, Kr2+
     },
     Br: {
-        mass: [79, 81], // Isótopos: Br-79, Br-81
+        Z: [35], // Número atómico de Bromo
+        A: [79, 81], // Isótopos: Br-79, Br-81
         chargeStates: [1, 2] // Estados de carga: Br+, Br2+
     },
     Xe: {
-        mass: [124, 126, 128, 129, 130, 131, 132, 134, 136], // Isótopos: Xe-124, Xe-126, Xe-128, Xe-129, Xe-130, Xe-131, Xe-132, Xe-134, Xe-136
+        Z: [54], // Número atómico de Xenón
+        A: [124, 126, 128, 129, 130, 131, 132, 134, 136], // Isótopos: Xe-124, Xe-126, Xe-128, Xe-129, Xe-130, Xe-131, Xe-132, Xe-134, Xe-136
         chargeStates: [1, 2] // Estados de carga: Xe+, Xe2+
     },
     I: {
-        mass: [127], // Isótopo: I-127
+        Z: [53], // Número atómico de Yodo
+        A: [127], // Isótopo: I-127
         chargeStates: [1, 2, 3] // Estados de carga: I+, I2+, I3+
     },
     Pb: {
-        mass: [204, 206, 207, 208], // Isótopos: Pb-204, Pb-206, Pb-207, Pb-208
+        Z: [82], // Número atómico de Plomo
+        A: [204, 206, 207, 208], // Isótopos: Pb-204, Pb-206, Pb-207, Pb-208
         chargeStates: [1, 2] // Estados de carga: Pb+, Pb2+
     },
     Au: {
-        mass: [197], // Isótopo: Au-197
+        Z: [79], // Número atómico de Oro
+        A: [197], // Isótopo: Au-197
         chargeStates: [1, 2, 3] // Estados de carga: Au+, Au2+, Au3+
     }
 };
@@ -84,9 +97,15 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
     });
 
     const [selectedElement, setSelectedElement] = useState(experimentSetup.beamSettings?.element ?? '');
+
+    const [atomicNumbers, setAtomicNumbers] = useState(
+        elementData[beamSettings.element]?.Z || []
+    );    
+
     const [masses, setMasses] = useState(
-        elementData[beamSettings.element]?.mass || []
+        elementData[beamSettings.element]?.A || []
     );
+    
     const [chargeStates, setChargeStates] = useState(
         elementData[beamSettings.element]?.chargeStates || []
     );
@@ -118,15 +137,17 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
             const { terminalPotential, injectionEnergy, magneticField, callibrationSlope, callibrationIntercept} = additionalSettings;
 			
 			const chargeState = beamSettings.chargeState;
+
+            const Z = beamSettings.Z;
 			
-			const mass = beamSettings.mass;
+			const A = beamSettings.A;
 
             const calculatedEnergyTP = chargeState && terminalPotential && injectionEnergy 
                 ? ((Number(chargeState) + 1) * Number(terminalPotential) + Number(injectionEnergy)).toFixed(2)
                 : '-';
 				
-            const calculatedEnergyMF = (mass && chargeState && magneticField && callibrationSlope && callibrationIntercept)
-                ? ((Math.pow(1e-4, 2)*1e-3*Number(electronCharge)/2) * Math.pow((Number(chargeState) * (Number(callibrationSlope)*Number(magneticField)+Number(callibrationIntercept))), 2) / ((Number(mass) - Number(chargeState)) * Number(neutronMass) + Number(chargeState) * Number(protonMass))).toFixed(2)	
+            const calculatedEnergyMF = (A && chargeState && magneticField && callibrationSlope && callibrationIntercept)
+                ? ((Math.pow(1e-4, 2)*1e-3*Number(electronCharge)/2) * Math.pow((Number(chargeState) * (Number(callibrationSlope)*Number(magneticField)+Number(callibrationIntercept))), 2) / ((Number(A) - Number(Z)) * Number(neutronMass) + Number(Z) * Number(protonMass))).toFixed(2)	
                 : '-';
 
             const percentDifference = (calculatedEnergyTP !== '-' && calculatedEnergyMF !== '-')
@@ -153,16 +174,27 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
 
         // useEffect para manejar el cambio de masas y estados de carga
         if (selectedElement) {
-            setMasses(elementData[selectedElement]?.mass || []);
+            setAtomicNumbers(elementData[selectedElement]?.Z || []);
+            setMasses(elementData[selectedElement]?.A || []);
             setChargeStates(elementData[selectedElement]?.chargeStates || []);
         }
-    }, [selectedElement, experimentSetup.additionalSettings, additionalBeamSettings, additionalSettings, additionalSettings.terminalPotential, additionalSettings.injectionEnergy, additionalSettings.magneticField, beamSettings.chargeState, beamSettings.mass]);
+
+        if (atomicNumbers.length === 1) {
+            setBeamSettings(prev => ({ ...prev, Z: atomicNumbers[0] }));
+        }
+
+    }, [selectedElement, atomicNumbers, experimentSetup.additionalSettings, additionalBeamSettings, additionalSettings, additionalSettings.terminalPotential, additionalSettings.injectionEnergy, additionalSettings.magneticField, beamSettings.chargeState, beamSettings.A, beamSettings.Z, beamSettings.atomicNumbers]);
 	
 	// Manejar el cambio de masa
     const handleMassChange = (e) => {
-        setBeamSettings(prev => ({ ...prev, mass: e.target.value }));
+        setBeamSettings(prev => ({ ...prev, A: e.target.value }));
     };
     
+    // Manejar el cambio de masa
+    const handleAtomicNumberChange = (e) => {
+        setBeamSettings(prev => ({ ...prev, Z: e.target.value }));
+    };
+        
     // Manejar el cambio de carga
     const handleChargeChange = (e) => {
         setBeamSettings(prev => ({ ...prev, chargeState: e.target.value }));
@@ -184,7 +216,8 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
     
         // Validación de campos para "Beam Settings"
         if (!beamSettings.element) missingFields.push('element') && missingMessage.push('Element');
-        if (!beamSettings.mass) missingFields.push('mass') && missingMessage.push('Mass');
+        if (!beamSettings.A) missingFields.push('A') && missingMessage.push('A');
+        if (!beamSettings.Z) missingFields.push('Z') && missingMessage.push('Z');
         if (!beamSettings.chargeState) missingFields.push('chargeState') && missingMessage.push('Charge State');
         if (!beamSettings.energy) missingFields.push('energy') && missingMessage.push('Beam energy');
         if (!beamSettings.chamberCurrent) missingFields.push('chamberCurrent') && missingMessage.push('Chamber Current');
@@ -217,7 +250,8 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
     const experimentSetupWithUnits = {
         beamSettings: {
             element: beamSettings.element,
-            mass: beamSettings.mass,
+            A: beamSettings.A,
+            Z: beamSettings.Z,
             chargeState: beamSettings.chargeState,
             energy: { value: toFloat(beamSettings.energy), units: 'keV' },
             chamberCurrent: { value: toFloat(beamSettings.chamberCurrent), units: 'μA' },
@@ -319,18 +353,36 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         ))}
                     </select>
                 </div>
+
                 <div className="exp-form-group">
-                    <label>Mass:</label>
+                    <label>Z:</label>
                     <select
-                        value={beamSettings.mass}
+                        value={beamSettings.Z}
+                        onChange={handleAtomicNumberChange}
+                        className={invalidFields.includes('Z') ? 'invalid' : ''}
+                    >
+                        <option value="">Select</option>
+                        {atomicNumbers.map((Z) => (
+                            <option key={Z} value={Z}>
+                                {Z}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+
+                <div className="exp-form-group">
+                    <label>A:</label>
+                    <select
+                        value={beamSettings.A}
                         onChange={handleMassChange}
-                        className={invalidFields.includes('mass') ? 'invalid' : ''}
+                        className={invalidFields.includes('A') ? 'invalid' : ''}
                         disabled={masses.length === 0}
                     >
                         <option value="">Select</option>
-                        {masses.map((mass) => (
-                            <option key={mass} value={mass}>
-                                {mass}
+                        {masses.map((A) => (
+                            <option key={A} value={A}>
+                                {A}
                             </option>
                         ))}
                     </select>
