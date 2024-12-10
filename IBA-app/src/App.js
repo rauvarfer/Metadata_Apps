@@ -114,7 +114,7 @@ function App() {
           if (activeTab === 'General Info.') {
             setActiveTab('Experiment Setup');
           } else {
-            setActiveTab('General Info.n');
+            setActiveTab('General Info.');
           }
 
           // Llamar a la API de Electron para minimizar y maximizar la ventana

@@ -22,7 +22,7 @@ const Detectors = ({ detectors, setDetectors }) => {
   });
 
   const [genParams, setGenParams] = useState( {...detectors.genParams,
-    sampleDetectorDistance: detectors.genParams?.sampleDetectorsDistance?.value ?? '245.00',
+    sampleDetectorDistance: detectors.genParams?.sampleDetectorsDistance?.value ?? '100.00',
     inverseCurrent: detectors.genParams?.inverseCurrent?.value ?? '',
     polarityBIAS: detectors.genParams?.polarityBIAS?.value ?? ''
   });
@@ -41,6 +41,7 @@ const Detectors = ({ detectors, setDetectors }) => {
     stateSetter((prev) => ({ ...prev, [key]: value }));
   };
 
+
   useEffect(() => {
 
     // useEffect para establecer el estado del checkbox si experimentSetup está definido
@@ -53,7 +54,20 @@ const Detectors = ({ detectors, setDetectors }) => {
         setApplyTimeCorrections(true);
     }
 
-}, [detectors.filter, detectors.timeCorrections, timeCorrections, filter]);
+    if (applyTimeCorrections) {
+      const { realTime, liveTime } = timeCorrections
+
+      const deadTime = realTime && liveTime
+      ? (Number(realTime) - Number(liveTime)).toFixed(2)
+      : '-';
+
+      setTimeCorrections(prev => ({
+        ...prev,
+        deadTime
+      }))
+    }
+
+}, [detectors.filter, detectors.timeCorrections, filter, timeCorrections.realTime, timeCorrections.liveTime, applyTimeCorrections, timeCorrections]);
 
   const handleSave = () => {
 
@@ -98,11 +112,13 @@ const Detectors = ({ detectors, setDetectors }) => {
 
     // Construir el objeto experimentSetup con unidades
     const detectorSystemWithUnits = {
-      filter: {
-        filterMaterial: filter.filterMaterial,
-        filterThickness: { value: toFloat(filter.filterThickness), units: 'mm' } ,
-        filterDiameter: { value: toFloat(filter.filterDiameter), units: 'mm' }     
-      },
+      ...(applyFilter && {
+        filter: {
+          filterMaterial: filter.filterMaterial,
+          filterThickness: { value: toFloat(filter.filterThickness), units: 'mm' } ,
+          filterDiameter: { value: toFloat(filter.filterDiameter), units: 'mm' }     
+        }
+      }),
       electronics: {
         amplifierCoarseGain: electronics.amplifierCoarseGain,
         amplifierFineGain: electronics.amplifierFineGain,
@@ -115,17 +131,19 @@ const Detectors = ({ detectors, setDetectors }) => {
         type: 'Solid State Detector',
         material: 'Si',
         thickness: { value: '100.00', units: 'µm' },
-        energyResolution: { value: '16.00', units: 'keV'},
-        detectorActiveArea: { value: '300.00', units: 'mm²'},
+        energyResolution: { value: '12.00', units: 'keV'},
+        detectorActiveArea: { value: '50.00', units: 'mm²'},
         sampleDetectorDistance: { value: toFloat(genParams.sampleDetectorDistance), units: 'mm'},
         polarityBIAS: { value: toFloat(genParams.polarityBIAS), units: 'V' },
         inverseCurrent: { value: toFloat(genParams.inverseCurrent), units: 'nA' }
       },
-      timeCorrections: {
-        realTime: { value: toFloat(timeCorrections.realTime), units: 'ms' },
-        liveTime: { value: toFloat(timeCorrections.liveTime), units: 'ms' },
-        deadTime: { value: toFloat(timeCorrections.deadTime), units: 'ms' }
-      }
+    ...(applyTimeCorrections && {
+        timeCorrections: {
+          realTime: { value: toFloat(timeCorrections.realTime), units: 'ms' },
+          liveTime: { value: toFloat(timeCorrections.liveTime), units: 'ms' },
+          deadTime: { value: toFloat(timeCorrections.deadTime), units: 'ms' }
+        }
+      })  
     }
 
     // Si no hay errores, guarda
@@ -455,8 +473,7 @@ const Detectors = ({ detectors, setDetectors }) => {
                        pattern="^\d+(\.\d+)?$"
                        onWheel={(e) => e.target.blur()}
                        value={timeCorrections.deadTime || ''}
-                       onChange={(e) => handleDecimalInput(e, 'deadTime', setTimeCorrections)}
-                       className={invalidFields.includes('deadTime') ? 'invalid' : ''}
+                       readOnly
                  />
                </div> 
   
