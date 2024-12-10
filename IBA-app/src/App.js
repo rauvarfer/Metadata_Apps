@@ -88,7 +88,7 @@ function App() {
         const jsonData = JSON.parse(e.target.result);
 
         // Validar estructura del JSON cargado (puedes añadir más validaciones según sea necesario)
-        if (jsonData.generalInfo && jsonData.experimentSetup && jsonData.detectors && jsonData.sample) {
+        if (jsonData.generalInfo && jsonData.experimentSetup && jsonData.detectors) {
           setGeneralInfo(jsonData.generalInfo)
           setExperimentSetup(jsonData.experimentSetup);
           setDetectors(jsonData.detectors);

@@ -93,7 +93,12 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
     const [beamSettings, setBeamSettings] = useState({...experimentSetup.beamSettings,
         energy: experimentSetup.beamSettings?.energy?.value ?? '',
         chamberCurrent: experimentSetup.beamSettings?.chamberCurrent?.value ?? '',
-        beamDiameter: experimentSetup.beamSettings?.beamDiameter?.value ?? ''
+        ...(experimentSetup.beamSettings?.beamShape === 'Circular' ? {
+            beamDiameter: experimentSetup.beamSettings?.beamDiameter?.value ?? ''} : {}),
+        ...(experimentSetup.beamSettings?.beamShape === 'Rectangular' ? {
+            beamWidth: experimentSetup.beamSettings?.beamWidth?.value ?? '',
+            beamHeight: experimentSetup.beamSettings?.beamHeight?.value ?? ''
+        } : {})
     });
 
     const [selectedElement, setSelectedElement] = useState(experimentSetup.beamSettings?.element ?? '');
@@ -116,8 +121,10 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
         terminalPotential: experimentSetup.additionalSettings?.terminalPotential?.value ?? '',
         injectionEnergy: experimentSetup.additionalSettings?.injectionEnergy?.value ?? '',
         magneticField: experimentSetup.additionalSettings?.magneticField?.value ?? '',
-        callibrationSlope: experimentSetup.additionalSettings?.callibrationSlope?.value ?? '1.00269',
-        callibrationIntercept: experimentSetup.additionalSettings?.callibrationIntercept?.value ?? '2.97155',
+        callibrationSlopeMF: experimentSetup.additionalSettings?.callibrationSlopeMF?.value ?? '1.00269',
+        callibrationInterceptMF: experimentSetup.additionalSettings?.callibrationInterceptMF?.value ?? '2.97155',
+        callibrationSlopeTP: experimentSetup.additionalSettings?.callibrationSlopeTP?.value ?? '0.99482',
+        callibrationInterceptTP: experimentSetup.additionalSettings?.callibrationInterceptTP?.value ?? '7.89465',
         calculatedEnergyTP: experimentSetup.additionalSettings?.calculatedEnergyTP?.value ?? '',
         calculatedEnergyMF: experimentSetup.additionalSettings?.calculatedEnergyMF?.value ?? '',
         percentDifference: experimentSetup.additionalSettings?.percentDifference?.value ?? '',
@@ -134,7 +141,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
 
         // useEffect para el cálculo automático de las variables
         if (additionalBeamSettings) {
-            const { terminalPotential, injectionEnergy, magneticField, callibrationSlope, callibrationIntercept} = additionalSettings;
+            const { terminalPotential, injectionEnergy, magneticField, callibrationSlopeMF, callibrationInterceptMF, callibrationSlopeTP, callibrationInterceptTP} = additionalSettings;
 			
 			const chargeState = beamSettings.chargeState;
 
@@ -142,12 +149,12 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
 			
 			const A = beamSettings.A;
 
-            const calculatedEnergyTP = chargeState && terminalPotential && injectionEnergy 
-                ? ((Number(chargeState) + 1) * Number(terminalPotential) + Number(injectionEnergy)).toFixed(2)
+            const calculatedEnergyTP = chargeState && terminalPotential && injectionEnergy && callibrationSlopeTP && callibrationInterceptTP
+                ? ((Number(chargeState) + 1) * (Number(callibrationSlopeTP) * Number(terminalPotential) + Number(callibrationInterceptTP)) + Number(injectionEnergy)).toFixed(2)
                 : '-';
 				
-            const calculatedEnergyMF = (A && chargeState && magneticField && callibrationSlope && callibrationIntercept)
-                ? ((Math.pow(1e-4, 2)*1e-3*Number(electronCharge)/2) * Math.pow((Number(chargeState) * (Number(callibrationSlope)*Number(magneticField)+Number(callibrationIntercept))), 2) / ((Number(A) - Number(Z)) * Number(neutronMass) + Number(Z) * Number(protonMass))).toFixed(2)	
+            const calculatedEnergyMF = (A && chargeState && magneticField && callibrationSlopeMF && callibrationInterceptMF)
+                ? ((Math.pow(1e-4, 2)*1e-3*Number(electronCharge)/2) * Math.pow((Number(chargeState) * (Number(callibrationSlopeMF)*Number(magneticField)+Number(callibrationInterceptMF))), 2) / ((Number(A) - Number(Z)) * Number(neutronMass) + Number(Z) * Number(protonMass))).toFixed(2)	
                 : '-';
 
             const percentDifference = (calculatedEnergyTP !== '-' && calculatedEnergyMF !== '-')
@@ -174,30 +181,38 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
 
         // useEffect para manejar el cambio de masas y estados de carga
         if (selectedElement) {
-            setAtomicNumbers(elementData[selectedElement]?.Z || []);
-            setMasses(elementData[selectedElement]?.A || []);
-            setChargeStates(elementData[selectedElement]?.chargeStates || []);
-        }
+            const updatedAtomicNumbers = elementData[selectedElement]?.Z || [];
+            const updatedMasses = elementData[selectedElement]?.A || [];
+            const updatedChargeStates = elementData[selectedElement]?.chargeStates || [];
 
-        if (atomicNumbers.length === 1) {
-            setBeamSettings(prev => ({ ...prev, Z: atomicNumbers[0] }));
+            setAtomicNumbers(updatedAtomicNumbers);
+            setMasses(updatedMasses);
+            setChargeStates(updatedChargeStates);
+
+            // Seleccionar automáticamente si solo hay una opción
+            setBeamSettings((prev) => ({
+                ...prev,
+                Z: updatedAtomicNumbers.length === 1 ? updatedAtomicNumbers[0] : prev.Z,
+                A: updatedMasses.length === 1 ? updatedMasses[0] : prev.A,
+                chargeState: updatedChargeStates.length === 1 ? updatedChargeStates[0] : prev.chargeState,
+            }));
         }
 
     }, [selectedElement, atomicNumbers, experimentSetup.additionalSettings, additionalBeamSettings, additionalSettings, additionalSettings.terminalPotential, additionalSettings.injectionEnergy, additionalSettings.magneticField, beamSettings.chargeState, beamSettings.A, beamSettings.Z, beamSettings.atomicNumbers]);
 	
-	// Manejar el cambio de masa
+	// Manejar el cambio de A
     const handleMassChange = (e) => {
-        setBeamSettings(prev => ({ ...prev, A: e.target.value }));
+        setBeamSettings(prev => ({ ...prev, A: String(e.target.value) }));
     };
     
-    // Manejar el cambio de masa
+    // Manejar el cambio de Z
     const handleAtomicNumberChange = (e) => {
-        setBeamSettings(prev => ({ ...prev, Z: e.target.value }));
+        setBeamSettings(prev => ({ ...prev, Z: String(e.target.value) }));
     };
         
     // Manejar el cambio de carga
     const handleChargeChange = (e) => {
-        setBeamSettings(prev => ({ ...prev, chargeState: e.target.value }));
+        setBeamSettings(prev => ({ ...prev, chargeState: String(e.target.value) }));
     };
 
     // Manejar decimales
@@ -212,7 +227,6 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
 
         const missingFields = [];
         const missingMessage = [];
-
     
         // Validación de campos para "Beam Settings"
         if (!beamSettings.element) missingFields.push('element') && missingMessage.push('Element');
@@ -221,8 +235,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
         if (!beamSettings.chargeState) missingFields.push('chargeState') && missingMessage.push('Charge State');
         if (!beamSettings.energy) missingFields.push('energy') && missingMessage.push('Beam energy');
         if (!beamSettings.chamberCurrent) missingFields.push('chamberCurrent') && missingMessage.push('Chamber Current');
-        if (!beamSettings.beamDiameter) missingFields.push('beamDiameter') && missingMessage.push('Beam Diameter');
-    
+   
         // Validación de campos para "Geometry"
         if (!geometry.incidentAngleAlpha) missingFields.push('incidentAngleAlpha') && missingMessage.push('Incident angle (α)');
         if (!geometry.exitAngleBeta) missingFields.push('exitAngleBeta') && missingMessage.push('Exit angle (β)');
@@ -250,34 +263,49 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
     const experimentSetupWithUnits = {
         beamSettings: {
             element: beamSettings.element,
-            A: beamSettings.A,
-            Z: beamSettings.Z,
-            chargeState: beamSettings.chargeState,
+            A: String(beamSettings.A),
+            Z: String(beamSettings.Z),
+            chargeState: String(beamSettings.chargeState),
             energy: { value: toFloat(beamSettings.energy), units: 'keV' },
             chamberCurrent: { value: toFloat(beamSettings.chamberCurrent), units: 'μA' },
-            beamDiameter: { value: toFloat(beamSettings.beamDiameter), units: 'mm' }
+            beamShape: beamSettings.beamShape,
+            // Condición para agregar los valores correspondientes dependiendo del tipo de beamShape
+            ...(beamSettings.beamShape === 'Circular' ? {
+                beamDiameter: { value: toFloat(beamSettings.beamDiameter), units: 'mm' }
+            } : beamSettings.beamShape === 'Rectangular' ? {
+                beamWidth: { value: toFloat(beamSettings.beamWidth), units: 'mm' },
+                beamHeight: { value: toFloat(beamSettings.beamHeight), units: 'mm' }
+            } : {})
         },
         ...(additionalBeamSettings && {
             additionalSettings: {
+                injectionEnergy: {
+                    value: toFloat(additionalSettings.injectionEnergy),
+                    units: 'keV'
+                },                
+                callibrationSlopeTP: {
+                    value: toFloat6(additionalSettings.callibrationSlopeTP),
+                    units: 'none'
+                },
+                callibrationInterceptTP: {
+                    value: toFloat6(additionalSettings.callibrationInterceptMF),
+                    units: 'kV'
+                },
                 terminalPotential: {
                     value: toFloat(additionalSettings.terminalPotential),
                     units: 'kV'
                 },
-                injectionEnergy: {
-                    value: toFloat(additionalSettings.injectionEnergy),
-                    units: 'keV'
+                callibrationSlopeMF: {
+                    value: toFloat6(additionalSettings.callibrationSlopeMF),
+                    units: 'none'
+                },
+                callibrationInterceptMF: {
+                    value: toFloat6(additionalSettings.callibrationInterceptMF),
+                    units: 'G'
                 },
                 magneticField: {
                     value: toFloat(additionalSettings.magneticField),
                     units: 'μA'
-                },
-                callibrationSlope: {
-                    value: toFloat6(additionalSettings.callibrationSlope),
-                    units: 'none'
-                },
-                callibrationIntercept: {
-                    value: toFloat6(additionalSettings.callibrationIntercept),
-                    units: 'G'
                 },
                 calculatedEnergyTP: {
                     value: toFloat(additionalSettings.calculatedEnergyTP),
@@ -360,6 +388,7 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                         value={beamSettings.Z}
                         onChange={handleAtomicNumberChange}
                         className={invalidFields.includes('Z') ? 'invalid' : ''}
+                        disabled={masses.length === 0}
                     >
                         <option value="">Select</option>
                         {atomicNumbers.map((Z) => (
@@ -433,20 +462,60 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                     />
                 </div>
 
-                <div className="exp-form-group">
-                    <label>Beam Diameter [mm]:</label>
-                    <input
-                        type="number"
-                        placeholder='0.00'
-                        step="0.01"
-                        pattern="^\d+(\.\d+)?$"
-                        onWheel={(e) => e.target.blur()}
-                        value={beamSettings.beamDiameter}
-                        onChange={(e) => handleDecimalInput(e, 'beamDiameter', setBeamSettings)}
-                        className={invalidFields.includes('beamDiameter') ? 'invalid' : ''}
-                    />
-                </div>
+            </div>
 
+            <div className="row">
+
+                {/* Shape of incident beam */}
+                    <div className="shape-form-group">
+                      <label>Beam Shape:</label>
+                      <select
+                        value={beamSettings.beamShape || ''}
+                        onChange={(e) => setBeamSettings({ ...beamSettings, beamShape: e.target.value })}
+                      >
+                        <option value="">Select Shape</option>
+                        <option value="Circular">Circular</option>
+                        <option value="Rectangular">Rectangular</option>
+                      </select>
+
+                    </div>
+
+                     {beamSettings.beamShape === 'Circular' && (
+                        <div className="exp-form-group">
+                          <label>Diameter [mm]:</label>
+                          <input
+                            type="number"                          
+                            onWheel={(e) => e.target.blur()}
+                            value={beamSettings.beamDiameter || ''}
+                            onChange={(e) => handleDecimalInput(e, 'beamDiameter', setBeamSettings)}
+                          />
+                        </div>
+                      )}
+
+                      {beamSettings.beamShape === 'Rectangular' && (
+                        <div className="row">
+                        <div className="exp-form-group">
+                          <label>Width [mm]:</label>
+                          <input
+                            type="number"
+                            onWheel={(e) => e.target.blur()}
+                            value={beamSettings.beamWidth || ''}
+                            onChange={(e) => handleDecimalInput(e, 'beamWidth', setBeamSettings)}
+                          />
+                        </div>
+                        <div className="exp-form-group">
+                          <label>Height [mm]:</label>
+                          <input
+                            type="number"
+                            onWheel={(e) => e.target.blur()}
+                            value={beamSettings.beamHeight || ''}
+                            onChange={(e) => handleDecimalInput(e, 'beamHeight', setBeamSettings)}
+                           required
+                          />
+                        </div>
+                        </div>
+                      )}
+                    
                 </div>
 
             </div>
@@ -471,6 +540,19 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                 <div className="additional-beam-settings-subsection">
                     <div className="row">
 
+                    <div className="exp-form-group">
+                          <label>Injection Energy [keV]:</label>
+                          <input
+                              type="number"
+                              placeholder='0.00'
+                              pattern="^\d+(\.\d+)?$"
+                              onWheel={(e) => e.target.blur()}
+                              value={additionalSettings.injectionEnergy}
+                              onChange={(e) => handleDecimalInput(e, 'injectionEnergy', setAdditionalSettings)}
+                              step="0.01"
+                          />
+                        </div>
+
                         <div className="exp-form-group">
                           <label>Terminal Potential [kV]:</label>
                           <input
@@ -484,26 +566,45 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                           />
                         </div>
 
+                    </div>
+
+                    <div className="row">
                         <div className="exp-form-group">
-                          <label>Injection Energy [keV]:</label>
+                          <label>Slope:</label>
                           <input
                               type="number"
                               placeholder='0.00'
                               pattern="^\d+(\.\d+)?$"
                               onWheel={(e) => e.target.blur()}
-                              value={additionalSettings.injectionEnergy}
-                              onChange={(e) => handleDecimalInput(e, 'injectionEnergy', setAdditionalSettings)}
-                              step="0.01"
+                              value={additionalSettings.callibrationSlopeTP}
+                              onChange={(e) => handleDecimalInput(e, 'callibrationSlopeTP', setAdditionalSettings)}
+                              step="0.01"                         
                           />
                         </div>
 
+                        <div className="exp-form-group">
+                          <label>Intercept [kV]:</label>
+                          <input
+                              type="number"
+                              placeholder='0.00'
+                              pattern="^\d+(\.\d+)?$"
+                              onWheel={(e) => e.target.blur()}
+                              value={additionalSettings.callibrationInterceptTP}
+                              onChange={(e) => handleDecimalInput(e, 'callibrationInterceptTP', setAdditionalSettings)}
+                              step="0.01"                         
+                          />
+                        </div>                          
                     </div>
+                
+                </div>
+                
+                <div className="additional-beam-settings-subsection">
 
 
                     <div className="row">
 
                         <div className="exp-form-group">
-                          <label>Magnetic Field [G]:</label>
+                          <label>Magnetic Field<sub>90º</sub> [G]:</label>
                           <input
                               type="number"
                               placeholder='0.00'
@@ -522,8 +623,8 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                               placeholder='0.00'
                               pattern="^\d+(\.\d+)?$"
                               onWheel={(e) => e.target.blur()}
-                              value={additionalSettings.callibrationSlope}
-                              onChange={(e) => handleDecimalInput(e, 'callibrationSlope', setAdditionalSettings)}
+                              value={additionalSettings.callibrationSlopeMF}
+                              onChange={(e) => handleDecimalInput(e, 'callibrationSlopeMF', setAdditionalSettings)}
                               step="0.01"                         
                           />
                         </div>
@@ -535,8 +636,8 @@ const ExperimentSetup = ({ experimentSetup, setExperimentSetup }) => {
                               placeholder='0.00'
                               pattern="^\d+(\.\d+)?$"
                               onWheel={(e) => e.target.blur()}
-                              value={additionalSettings.callibrationIntercept}
-                              onChange={(e) => handleDecimalInput(e, 'callibrationIntercept', setAdditionalSettings)}
+                              value={additionalSettings.callibrationInterceptMF}
+                              onChange={(e) => handleDecimalInput(e, 'callibrationInterceptMF', setAdditionalSettings)}
                               step="0.01"                         
                           />
                         </div>                   
