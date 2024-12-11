@@ -126,11 +126,11 @@ The "Sample" tab contains one section with two fields:
 
 # Buttons and Functionality
 
-Each tab features a green "Save" button to store the entered data before generate the `.json` file (**please note that even if the fields are filled in, it is necessary to press the button to save them in the file to be generated, because if this button is not pressed, these values will be deleted when the tab is changed**). If mandatory fields are left blank, an error message appears, highlighting the missing fields in red. 
+Each tab features a green "Save" button to store the entered data before generate the `.json` file (**please note that even if the fields are filled in, it is necessary to press the button to save them in the file to be generated, because if this button is not pressed, these values will be deleted when the tab is changed**). If mandatory fields are left blank, an error message appears, highlighting the missing fields in red (the red border will not disappear until the button to save all the fields is pressed again). 
 
 Additionally, there are three utility buttons:
 
-1. **Save JSON:** Generates the `.json` file with all the saved data, including the date and time.
+1. **Save JSON:** Generates the `.json` file with all the saved data, including the date and time. All forms must be filled in and saved in order to generate the file, otherwise a message will appear indicating which ones are missing, highlighting the missing forms in red (the red border will not disappear until the button to generate the file is pressed again).
 2. **Load JSON:** Loads data from an existing `.json` file of the same structure.
 3. **Clean JSON:** Clears all saved or loaded data.
 
