@@ -96,7 +96,7 @@ This tab has two sections:
     - Optional additional settings: `Terminal Potential`, `Injection Energy`, `EM Current` (electromagent current), and `Stripper Pressure`.
 
 2. **Geometry:** Contains an illustrative image and fields to define:
-    - Azimuthal (`sample angle beta`, `detector angle theta`) and polar (`sample angle phi`, `detector angle phi`) angles. Polar angles default to 0 unless changed. Sample angles are calculated with respect to the incident beam, while detector angles are calculated with respect to the beam projection. 
+    - Azimuthal (`Sample Angle (\beta)`, `Detector Angle theta`) and polar (`sample angle phi`, `detector angle phi`) angles. Polar angles default to 0 unless changed. Sample angles are calculated with respect to the incident beam, while detector angles are calculated with respect to the beam projection. 
 
 ## Detection System
 
