@@ -1,10 +1,3 @@
----
-title: "Application Description for ToF-ERDA Metadata JSON Generation"
-author: "Raúl Varela Ferrando"
-date: "`r Sys.Date()`"
-output: html_document
----
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Prerequisites
