@@ -1,8 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Prerequisites
 
-Before you start, make sure you have [Node.js](https://nodejs.org/) installed on your system. You can download it from the official website.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Before you start, make sure you have [Node.js](https://nodejs.org/) installed on your system. You can download it from the official website.
 
 To verify if you have Node.js and npm installed, run the following commands in your terminal:
 
