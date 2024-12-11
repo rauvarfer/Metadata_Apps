@@ -69,15 +69,15 @@ This application is designed to generate `.json` files containing all the necess
 The "General Info." tab is divided into three sections:
 
 1. **Proposal:** Includes fields for:
-    - `proposal code`: Identifier for the experiment proposal.
-    - `abstract`: Brief description of the experiment.
+    - `Proposal Code`: Identifier for the experiment proposal.
+    - `Abstract`: Brief description of the experiment.
 
 2. **Principal Investigator:** Collects the following details:
-    - `name`: Principal Investigator's name.
-    - `institution`: Affiliated institution.
-    - `email`: Contact email.
+    - `Name`: Principal Investigator's name.
+    - `Institution`: Affiliated institution.
+    - `Email`: Contact email.
 
-3. **Team Members:** Allows adding up to four team members with fields for `name`, `institution`, and `email`. New members can be added with the "Add new team member" button, up to four new team members, and removed via the "Remove member" button.
+3. **Team Members:** Allows adding up to four team members with fields for `Name`, `Institution`, and `Email`. New members can be added with the "Add new team member" button, up to four new team members, and removed via the "Remove member" button.
 
 ## Experiment Setup
 
@@ -99,8 +99,8 @@ This tab includes five sections:
 
 1. **Time of Flight Detector:**
    
-    - Numerical fields: `sample-T1 distance`, `length of flight` (predefined values), and `polarity BIAS`.
-    - Internal specifications such as carbon foil density, thickness, diameter, and initial time resolution.
+    - Numerical fields: `Sample-T1 distance`, `Length of Flight` (both predefined values), and `Polarity BIAS`.
+    - Internal specifications such as carbon foil density, thickness, diameter, and initial time resolution of the ToF detector are setted internaly.
 
 2. **Time of Flight Detector Electronics:**
    
@@ -108,8 +108,8 @@ This tab includes five sections:
 
 3. **Energy Detector:**
    
-    - Fields for `sample-detector distance` (predefined) and `polarity BIAS`.
-    - Specifications like detector type, material, thickness, active area, and initial energy resolution, are setted internaly.
+    - Fields for `Sample-Detector distance` (predefined value) and `Polarity BIAS`.
+    - Specifications like detector type, material, thickness, active area, and initial energy resolution of the energy detector are setted internaly.
 
 4. **Energy Detector Electronics:** Analogous to the "Time of Flight Detector Electronics" section.
 
@@ -121,12 +121,12 @@ This tab includes five sections:
 
 The "Sample" tab contains one section with two fields:
 
-- `type`: Specifies whether the measurement is a `test` or `calibration`.
+- `Type`: Specifies whether the measurement is a `test` or `calibration`.
 - `ID`: Identifies the sample used.
 
 # Buttons and Functionality
 
-Each tab features a green "Save" button to store the entered data. If mandatory fields are left blank, an error message appears, highlighting the missing fields in red. 
+Each tab features a green "Save" button to store the entered data before generate the `.json` file (**please note that even if the fields are filled in, it is necessary to press the button to save them in the file to be generated, because if this button is not pressed, these values will be deleted when the tab is changed**). If mandatory fields are left blank, an error message appears, highlighting the missing fields in red. 
 
 Additionally, there are three utility buttons:
 
