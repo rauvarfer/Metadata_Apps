@@ -128,7 +128,7 @@ Main directory containing the application's source code.
 - **`package-lock.json`**: Ensures consistency in the versions of installed dependencies.
 - **`README.md`**: Project documentation.
 
-# Additional Considerations
+## Additional Considerations
 
 - The application is packaged using `react-scripts build` and `electron-builder`.
 
