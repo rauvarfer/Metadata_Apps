@@ -91,12 +91,14 @@ The "General Info." tab is divided into three sections:
 This tab has two sections:
 
 1. **Beam Settings:** Includes the following fields:
+   
     - `Element`, `Mass`, `Charge State`: Define the ion used to produce the beam.
     - `Energy` and `FC Current`: Numerical fields for beam energy and Faraday cup current.
     - Optional additional settings: `Terminal Potential`, `Injection Energy`, `EM Current` (electromagent current), and `Stripper Pressure`.
 
 2. **Geometry:** Contains an illustrative image and fields to define:
-    - Azimuthal (`Sample Angle ($\beta$)`, `Detector Angle theta`) and polar (`sample angle phi`, `detector angle phi`) angles. Polar angles default to 0 unless changed. Sample angles are calculated with respect to the incident beam, while detector angles are calculated with respect to the beam projection. 
+   
+    - Azimuthal (`Sample Angle (β)`, `Detector Angle (θ)`) and polar (`Sample Angle (φ₁)`, `Detector Angle (φ₂)`) angles. Polar angles default to 0 unless changed. Sample angles are calculated with respect to the incident beam, while detector angles are calculated with respect to the beam projection. 
 
 ## Detection System
 
@@ -107,24 +109,24 @@ This tab includes five sections:
     - Numerical fields: `sample-T1 distance`, `length of flight` (predefined values), and `polarity BIAS`.
     - Internal specifications such as carbon foil density, thickness, diameter, and initial time resolution.
 
-3. **Time of Flight Detector Electronics:**
+2. **Time of Flight Detector Electronics:**
    
     - Numerical fields for `Shaping Time`, `Amplifier Coarse Gain`, `Amplifier Fine Gain`, `ATC Gain` and `ATC Range`.
 
-5. **Energy Detector:**
+3. **Energy Detector:**
    
     - Fields for `sample-detector distance` (predefined) and `polarity BIAS`.
     - Specifications like detector type, material, thickness, active area, and initial energy resolution, are setted internaly.
 
-7. **Energy Detector Electronics:** Analogous to the "Time of Flight Detector Electronics" section.
+4. **Energy Detector Electronics:** Analogous to the "Time of Flight Detector Electronics" section.
 
-8. **Common Electronics:**
+5. **Common Electronics:**
    
     - Numerical fields for `Coincidence Window`, `Real Time`, `Live Time`, and `Dead Time`.
 
 ## Sample
 
-The "Sample" tab contains two fields:
+The "Sample" tab contains one section with two fields:
 
 - `type`: Specifies whether the measurement is a `test` or `calibration`.
 - `ID`: Identifies the sample used.
@@ -143,7 +145,7 @@ The application accepts both `.` and `,` as decimal separators but saves data us
 
 # JSON File Structure
 
-Below is an example of the resulting `.json` file:
+Below is an example of the resulting `.json` file (please note that the fields whose values are empty are the fields to be setted by the user, while those with values are the ones that are predefined):
 
 ```json
 {
@@ -298,7 +300,7 @@ Below is an example of the resulting `.json` file:
       "EnergyAmplifierCoarseGain": " ",
       "EnergyAmplifierFineGain": " ",
       "EnergyShapingTime": {
-        "value": " 0",
+        "value": " ",
         "units": "µs"
       },
       "EnergyAdcGain": " ",
