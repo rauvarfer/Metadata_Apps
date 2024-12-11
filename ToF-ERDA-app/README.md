@@ -1,5 +1,3 @@
-
-
 ## Prerequisites
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Before you start, make sure you have [Node.js](https://nodejs.org/) installed on your system. You can download it from the official website.
@@ -57,6 +55,82 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+# Project Structure
+
+Below is the project structure:
+
+```plaintext
+ToF-ERDA-app/
+├── public/
+│   ├── image.png
+│   ├── favicon.ico
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── index.html
+│   ├── manifest.json
+│   ├── electron.js
+│   └── preload.js
+├── src/
+│   ├── components/
+│   │   ├── GeneralInformation/
+│   │   │   ├── GeneralInformation.js
+│   │   │   └── GeneralInformation.css
+│   │   │   ├── ExperimentSetup.js
+│   │   │   └── ExperimentSetup.css
+│   │   │   ├── Detector.js
+│   │   │   └── Detector.css
+│   │   │   ├── Sample.js
+│   │   │   └── Sample.css
+│   ├── logo.html
+│   ├── App.js
+│   ├── App.css
+│   ├── App.test.js
+│   ├── index.js
+│   ├── index.css
+│   ├── reportWebVitals.js
+│   └── setupTests.js
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+## Description of Directories and Files
+
+### `public/`
+Contains static files that are not processed by React's build process.
+
+- **`image.png`**: An image used in the application.
+- **`favicon.ico`**: The logo used in the application.
+- **`logo192.png`**: Predefined logo 192x192 size.
+- **`logo512.png`**: Predifined logo 512x512 size.
+- **`index.html`**: The main HTML file where the React app is injected.
+- **`manifest.json`**: Configuration file for Progressive Web Apps (PWA).
+- **`electron.js`**: Main Electron file that configures the application window.
+- **`preload.js`**: File that sets up a secure bridge between Electron's main process and the renderer.
+
+### `src/`
+Main directory containing the application's source code.
+
+- **`components/`**: Contains React components. On the one hand, we have all the logic of each component in the `.js` files, and the interface styles in the `.css`. files.
+- **`App.js`**: The main component that controls the app's rendering.
+- **`App.css`**: Global styles for the application.
+- **`App.test.js`**: File for unit testing the main component.
+- **`index.js`**: Entry point of the project.
+- **`index.css`**: Initial global styles for the project.
+- **`reportWebVitals.js`**: File for measuring the app's performance.
+- **`setupTests.js`**: Configuration file for tests using tools like Jest.
+- **`logo.html`**: Default React logo in html format.
+
+### Project Root
+
+- **`package.json`**: Project configuration file defining dependencies and scripts.
+- **`package-lock.json`**: Ensures consistency in the versions of installed dependencies.
+- **`README.md`**: Project documentation.
+
+# Additional Considerations
+
+- The application is packaged using `react-scripts build` and `electron-builder`.
 
 # Overview
 
