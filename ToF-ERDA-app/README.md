@@ -208,7 +208,7 @@ Additionally, there are three utility buttons:
 2. **Load JSON:** Loads data from an existing `.json` file of the same structure.
 3. **Clean JSON:** Clears all saved or loaded data.
 
-The application accepts both `.` and `,` as decimal separators but saves data using `.` (**It is VERY IMPORTANT NOT to use thousand separators for the correct functioning of the application**). Furthermore, all numerical fields with associated units will display their values and units in the generated `.json file.
+The application accepts both `.` and `,` as decimal separators but saves data using `.` (**It is VERY IMPORTANT NOT to use thousand separators for the correct functioning of the application**). Furthermore, all numerical fields with associated units will display their values and units in the generated `.json` file.
 
 # JSON File Structure
 
@@ -216,7 +216,7 @@ Below is an example of the resulting `.json` file (please note that the fields w
 
 ```json
 {
-  "date": "2024-12-10T13:42:19.971Z",
+  "date": "YYYY-MM-DDTHH:MM:SSZ",
   "generalInfo": {
     "proposal": {
       "code": " ",
